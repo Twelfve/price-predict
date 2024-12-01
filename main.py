@@ -1,6 +1,7 @@
 # main.py
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import pandas as pd
 import numpy as np
@@ -11,6 +12,14 @@ import pickle
 
 # Initialize FastAPI app
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # O puedes especificar una lista de orígenes específicos, por ejemplo: ["http://localhost:4200"]
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos los métodos (GET, POST, PUT, DELETE, etc.)
+    allow_headers=["*"],  # Permite todos los encabezados
+)
 
 # Load and preprocess the dataset
 file_path = "./Automobile_data.csv"
